@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css"/>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+	</head>
+	
+	<body>
+		<!--- comment cfclientsettings if device API's are not used --->
+		<cfclientsettings detectdevice="true" enabledeviceapi="true"/>
+	
+		<div data-role="page" id="masterdetail">
+		
+			<!-- /header -->
+			<div data-role="header" data-position="fixed" data-theme="a" data-tap-toggle="false">
+			
+				<a id="masterlnk" href="#" onclick="handleMaster()" data-role="button" data-icon="back" data-theme="a">Master</a>
+				<h1>
+					<div id="title"></div>
+				</h1>
+			</div>
+			<!-- /header -->
+			<!-- page content -->
+			<div id="div_content" data-role="content" data-theme="a" data-content-theme="c">
+			
+				<!--- A div element where the master list will be displayed --->
+				<div id="masterdiv" class="masterdiv">
+				
+					<ul data-role="listview" id='masterlist' data-theme='c' class='masterlist'
+					    data-filter='true' data-filter-placeholder='' data-inset='true'>
+						<li id='abt' data-icon='arrow-r' data-iconpos='right' onclick="handleDetail('abt')">
+							<a href='#'>
+								About Usa
+							</a>
+						</li>
+						<li id='prd' data-icon='arrow-r' data-iconpos='right' onclick="handleDetail('prd')">
+							<a href='#'>
+								Products
+							</a>
+						</li>
+						<li id='ser' data-icon='arrow-r' data-iconpos='right' onclick="handleDetail('ser')">
+							<a href='#'>
+								Services
+							</a>
+						</li>
+						<li id='sup' data-icon='arrow-r' data-iconpos='right' onclick="handleDetail('sup')">
+							<a href='#'>
+								Support
+							</a>
+						</li>
+						<li id='cnt' data-icon='arrow-r' data-iconpos='right' onclick="handleDetail('cnt')">
+							<a href='#'>
+								Contact Us
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<div id="abt" class="detaildiv">
+					About Us...
+				</div>
+				<div id="prd" class="detaildiv">
+					Products...
+				</div>
+				<div id="ser" class="detaildiv">
+					Services...
+				</div>
+				<div id="sup" class="detaildiv">
+					Support...
+				</div>
+				<div id="cnt" class="detaildiv">
+					Contact Us...
+				</div>
+			</div>
+			<!-- page content -->
+			<!-- footer -->
+			<div data-role="footer" data-position="fixed" data-theme="c" data-tap-toggle="false">
+				<h4>
+					Master Detail template
+				</h4>
+			</div>
+			<!-- /footer -->
+		</div>
+	</body>
+	<script type="text/javascript" >
+		$(document).on('pageinit', '#masterdetail', function ()
+        {
+            handleMaster();
+        });
+		function handleDetail(id)
+		{
+			$("a#masterlnk").show();
+			$("div#title").text("Detail");
+			hide_all_content(show_content,id);
+		}
+		function handleMaster()
+		{
+			$("a#masterlnk").hide();
+			$("div#title").text("Master");
+			hide_all_content(show_content,"masterdiv");
+		}
+		function hide_all_content(callback, id)
+		{
+			$.when($('div.detaildiv, div.masterdiv').hide()).then(function () {
+				callback(id);
+			});
+		}
+		function show_content(id)
+		{
+			$(".detaildiv#"+id+", .masterdiv#"+id).show();
+		}
+		function hide_content(id)
+		{
+			$(".detaildiv#"+id+", .masterdiv#"+id).hide();
+		}
+	</script>
+</html>
